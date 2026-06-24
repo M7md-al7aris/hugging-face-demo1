@@ -15,10 +15,10 @@ jobs:
       - name: add remote
         env:
           HF_TOKEN: ${{secrets.HF_TOKEN}}
-        run: git remote add space https://$HF_TOKEN@huggingface.co/spaces/M7md-al7aris/demo1
+        run: git remote add space https://M7md-al7aris:$HF_TOKEN@huggingface.co/spaces/M7md-al7aris/demo1
 
       - name: push to hub
         env:
           HF_TOKEN: ${{secrets.HF_TOKEN}}
-        run: git push --force https://$HF_TOKEN@huggingface.co/spaces/M7md-al7aris/demo1 main
+        run: git push --force https://M7md-al7aris:$HF_TOKEN@huggingface.co/spaces/M7md-al7aris/demo1 main
      
