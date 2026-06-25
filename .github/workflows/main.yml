@@ -3,22 +3,18 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+
 jobs:
   sync-to-hub:
     runs-on: ubuntu-latest
-    env:
-      ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: add remote
-        env:
-          HF_TOKEN: ${{secrets.HF_TOKEN}}
-        run: git remote add space https://M7md-al7aris:$HF_TOKEN@huggingface.co/spaces/M7md-al7aris/demo1
+          lfs: true 
 
-      - name: push to hub
+      - name: Push to Hugging Face Space
         env:
-          HF_TOKEN: ${{secrets.HF_TOKEN}}
-        run: git push --force https://M7md-al7aris:$HF_TOKEN@huggingface.co/spaces/M7md-al7aris/demo1 main
-     
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          git push --force https://M7md-al7aris:$HF_TOKEN@huggingface.co/spaces/M7md-al7aris/demo1 main
