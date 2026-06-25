@@ -11,10 +11,17 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          lfs: true 
+          lfs: true
 
-      - name: Push to Hugging Face Space
+      - name: Configure Git Credentials & Push
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
-          git push --force https://M7md-al7aris:$HF_TOKEN@huggingface.co/spaces/M7md-al7aris/demo1 main
+          # 1. Set up the remote target URL cleanly
+          git remote add space https://huggingface.co/spaces/M7md-al7aris/demo1
+          
+          # 2. Tell git to use your HF_TOKEN as the authorization header bearer token
+          git config --global http.https://huggingface.co/.extraheader "Authorization: Bearer $HF_TOKEN"
+          
+          # 3. Push safely
+          git push --force space main
