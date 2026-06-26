@@ -15,14 +15,7 @@ jobs:
 
       - name: Push to Hugging Face Space
         env:
-          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          HF_TOKEN: ${{ secrets.HG }}
         run: |
-          # 1. Inline the token seamlessly into Git's credential store for huggingface.co
-          git config --global credential.https://huggingface.co.username "M7md-al7aris"
-          git config --global credential.https://huggingface.co.helper "!f() { echo password=$HF_TOKEN; }; f"
-          
-          # 2. Add the clean URL
-          git remote add space https://huggingface.co/spaces/M7md-al7aris/demo1
-          
-          # 3. Safely push without any credential prompt triggers
-          git push --force space main
+          git config --global --unset-all credential.helper || true
+          git push --force https://M7md-al7aris:$HF_TOKEN@huggingface.co/spaces/M7md-al7aris/demo1 main
