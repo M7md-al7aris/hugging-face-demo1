@@ -3,5 +3,5 @@ pytest-cov
 pylint
 black
 gradio
-tensorflow
+torch
 transformers
