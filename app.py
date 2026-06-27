@@ -1,16 +1,18 @@
 from transformers import pipeline
 import gradio as gr
 
-model = pipeline("summarization")
+
+model = pipeline("sentiment-analysis")
 
 
 def predict(prompt):
-    summary = model(prompt)[0]["summary_text"]
-    return summary
+    result = model(prompt)[0]
+    output = f"Label: {result['label']} (Confidence: {result['score']:.4f})"
+    return output
 
 
 with gr.Blocks() as demo:
-    textbox = gr.Textbox(placeholder="Enter text block to summarize", lines=4)
+    textbox = gr.Textbox(placeholder="Enter a sentence to analize", lines=4)
     gr.Interface(fn=predict, inputs=textbox, outputs="text")
 
 demo.launch()
